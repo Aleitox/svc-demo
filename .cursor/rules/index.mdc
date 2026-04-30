@@ -1,0 +1,52 @@
+---
+description: Rules map, style for new rules, and rigor for answers
+alwaysApply: false
+---
+
+# Rules index (`/.cursor/rules/`)
+
+## Recommended style (match this index)
+
+When adding new rules, use this format to keep things consistent:
+
+- **Top-level title:** `#` with a clear name (`# Rules index…`, `# Project…`).
+- **Sections:** `##` with short headings (stack, commands, what goes where).
+- **Lists:** bullets with a **bold** label (`- **Name:** text`).
+- **Parallel facts:** Markdown tables (`File | Purpose`) when comparing roles or paths.
+- **Commands or config:** fenced code blocks for shell or YAML; use bullet lists when that is enough.
+- **Language:** **English** for all `.mdc` files and for **all code** (including comments, new identifiers, and user-facing strings you add in source), regardless of whether chat is in Spanish or English. Keep the same tone across `.mdc` files: technical, direct, no filler.
+- **Size:** keep rules focused; put detail in scoped files with `globs` or `@`, not long `alwaysApply` essays.
+
+## Rigor in answers (Agent and code suggestions)
+
+- **Do not invent:** do not assert APIs, versions, paths, dependency behavior, or command output without the repo, cited docs, or a real run.
+- **Truth and objectivity:** if you do not know or cannot verify something, say so; suggest how to verify (file, command, doc) instead of guessing.
+- **Facts vs opinions:** separate verifiable facts from recommendations; flag uncertainty explicitly.
+
+## What goes in each file
+
+| File | Purpose |
+|------|---------|
+| **`project.mdc`** | Repo-wide rules: tooling stack, architectural decisions, “do not touch X”, priorities. Use `alwaysApply: true` only if it should appear in **every** chat—keep it short. |
+| **`index.mdc`** (this file) | **Map only**: which `.mdc` exists, scope, naming, and style for writing rules. Avoid long guides here; link or point to other files. |
+| **Other `.mdc`** (e.g. `java.mdc`, `sql.mdc`, `api.mdc`) | **One concern per file:** patterns the Agent gets wrong repeatedly. Narrow with `globs` (e.g. `**/*.java`, `**/db/migration/**/*.sql`). |
+| **Manual `@` rules** | Minimal file without strong `alwaysApply` / `globs` / `description` → mostly via **`@name`** in chat. For long or rarely needed guides. |
+
+## When Cursor applies each rule
+
+- **`alwaysApply: true`:** always visible to Agent (costs context each time → keep concise).
+- **`globs` + `alwaysApply: false`:** when open or touched files match (good for Java, SQL, frontend, etc.).
+- **`description` only (+ `alwaysApply: false`):** Agent decides relevance (“Apply intelligently”).
+- **No strong frontmatter:** prefer **`@`** in chat when needed.
+
+## Active rule files in this project
+
+| Active rule |
+|-------------|
+| `project.mdc` — stack, build, repo context |
+| `index.mdc` — map and style guide (not global) |
+| `java.mdc` — Java and Spring conventions for `**/*.java` |
+| `sql.mdc` — Flyway SQL migration conventions |
+| `testing.mdc` — testing conventions for `src/test` Java files |
+
+You can add more `.mdc` files in this folder or subfolders (Cursor supports that under `.cursor/rules/`).

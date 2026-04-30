@@ -1,0 +1,32 @@
+---
+description: Java and Spring conventions for backend source files
+globs:
+  - "**/*.java"
+alwaysApply: false
+---
+
+# Java backend conventions
+
+## Layering
+
+- **Controllers:** handle HTTP concerns only (status, params, request/response DTOs).
+- **Services:** contain business rules and transactional orchestration.
+- **Repositories:** keep persistence access logic only.
+- **No business logic in controllers:** delegate to services.
+
+## Validation and mapping
+
+- **Input validation:** validate request DTOs using Bean Validation and `@Valid`.
+- **DTO boundary:** avoid exposing JPA entities directly in REST contracts.
+- **Mapping:** keep mappers focused and deterministic (no side effects).
+
+## Error handling
+
+- **Expected errors:** map to explicit HTTP responses (4xx/5xx) via centralized exception handling.
+- **Messages:** keep API error messages clear, stable, and in English.
+
+## Code style
+
+- **Small methods:** prefer short, cohesive methods and early returns.
+- **Naming:** use intention-revealing names (`findByIdOrThrow`, `createRecipe`, etc.).
+- **No magic values:** extract constants when a value has domain meaning.

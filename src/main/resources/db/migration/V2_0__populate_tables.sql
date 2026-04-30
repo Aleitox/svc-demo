@@ -36,18 +36,18 @@ INSERT INTO dish_recipe (
     1, 1
 );
 
--- 2.3 Link ingredients to the recipe in 'recipe_ingredient'.
-INSERT INTO recipe_ingredient (
-    recipe_id, ingredient_id, quantity, unit
+-- 2.3 Link ingredients to the recipe in 'recipe_component'.
+INSERT INTO recipe_component (
+    recipe_id, component_type, ingredient_id, child_recipe_id, quantity, unit
 ) VALUES
-    (1, 1, 800.00, 'g'),
-    (1, 2, 100.00, 'g'),
-    (1, 3, 150.00, 'g'),
-    (1, 4, 10.00, 'g'),
-    (1, 5, 5.00, 'g'),
-    (1, 6, 50.00, 'g'),
-    (1, 7, 30.00, 'g'),
-    (1, 8, 50.00, 'g');
+    (1, 'INGREDIENT', 1, null, 800.00, 'g'),
+    (1, 'INGREDIENT', 2, null, 100.00, 'g'),
+    (1, 'INGREDIENT', 3, null, 150.00, 'g'),
+    (1, 'INGREDIENT', 4, null, 10.00, 'g'),
+    (1, 'INGREDIENT', 5, null, 5.00, 'g'),
+    (1, 'INGREDIENT', 6, null, 50.00, 'g'),
+    (1, 'INGREDIENT', 7, null, 30.00, 'g'),
+    (1, 'INGREDIENT', 8, null, 50.00, 'g');
 
 -- 2.4 Add step-by-step instructions in 'recipe_step'.
 INSERT INTO recipe_step (
