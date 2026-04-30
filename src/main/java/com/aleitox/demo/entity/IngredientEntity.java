@@ -12,38 +12,41 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "comida")
+@Table(name = "ingredient")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ComidaEntity {
+public class IngredientEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(nullable = false)
-    private String nombre;
+    private String name;
 
-    @Column(nullable = false)
-    private BigDecimal calorias;
+    @Column(name = "calories_per_100g", nullable = false)
+    private BigDecimal caloriesPer100g;
 
-    @Column(nullable = false)
-    private BigDecimal proteinas;
+    @Column(name = "proteins_per_100g", nullable = false)
+    private BigDecimal proteinsPer100g;
 
-    @Column(nullable = false)
-    private BigDecimal carbohidratos;
+    @Column(name = "carbohydrates_per_100g", nullable = false)
+    private BigDecimal carbohydratesPer100g;
 
-    @Column(nullable = false)
-    private BigDecimal grasas;
+    @Column(name = "fats_per_100g", nullable = false)
+    private BigDecimal fatsPer100g;
+
+    @Column(name = "nutrition_source")
+    private String nutritionSource;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 }
