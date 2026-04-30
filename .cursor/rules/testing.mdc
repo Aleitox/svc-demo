@@ -1,0 +1,31 @@
+---
+description: Testing conventions for Spring Boot and Java tests
+globs:
+  - "**/src/test/**/*.java"
+alwaysApply: false
+---
+
+# Testing conventions
+
+## Test scope
+
+- **Prefer focused tests first:** unit or slice tests before full `@SpringBootTest`.
+- **Use integration tests intentionally:** reserve full-context tests for wiring/integration behavior.
+- **One behavior per test:** each test should validate a single expected outcome.
+
+## Structure and naming
+
+- **Pattern:** keep tests in Given/When/Then flow.
+- **Names:** use descriptive names that state expected behavior.
+- **Arrange data clearly:** make test setup explicit and minimal.
+
+## Stability
+
+- **Determinism:** avoid time/network/random flakiness without control points.
+- **Isolation:** tests must not depend on execution order.
+- **No hidden shared state:** reset mutable static/shared fixtures between tests.
+
+## Project specifics
+
+- **Test database:** default to H2/test profile unless a test explicitly requires MySQL behavior.
+- **Flyway in tests:** respect project test config and avoid assumptions when disabled.

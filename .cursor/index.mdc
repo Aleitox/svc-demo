@@ -1,0 +1,9 @@
+# Index (shortcut outside `rules/`)
+
+**Note:** Cursor loads **Project Rules** only from **`.cursor/rules/`**. This file is usually **not** injected into the Agent; it is mainly a visible marker under `.cursor/`.
+
+Cursor loads project rules from **`.cursor/rules/`** (`.md` / `.mdc` files).
+
+**Index and guide for what goes in each file:** open **`rules/index.mdc`**.
+
+General demo rules: **`rules/project.mdc`**.

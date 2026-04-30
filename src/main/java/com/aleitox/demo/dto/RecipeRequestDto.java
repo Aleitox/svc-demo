@@ -16,7 +16,7 @@ public record RecipeRequestDto(
         String description,
 
         @NotEmpty
-        List<@Valid RecipeIngredientRequestDto> ingredients,
+        List<@Valid RecipeComponentRequestDto> components,
 
         @NotEmpty
         List<@Valid RecipeStepRequestDto> steps

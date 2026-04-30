@@ -1,7 +1,7 @@
 package com.aleitox.demo.controller;
 
-import com.aleitox.demo.dto.RecipeIngredientRequestDto;
-import com.aleitox.demo.dto.RecipeIngredientResponseDto;
+import com.aleitox.demo.dto.RecipeComponentRequestDto;
+import com.aleitox.demo.dto.RecipeComponentResponseDto;
 import com.aleitox.demo.dto.RecipeRequestDto;
 import com.aleitox.demo.dto.RecipeResponseDto;
 import com.aleitox.demo.dto.RecipeStepRequestDto;
@@ -59,24 +59,24 @@ public class RecipeController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{recipeId}/ingredients")
-    public ResponseEntity<RecipeIngredientResponseDto> addIngredient(@PathVariable Integer recipeId,
-                                                                     @Valid @RequestBody RecipeIngredientRequestDto request) {
-        RecipeIngredientResponseDto created = recipeService.addIngredient(recipeId, request);
+    @PostMapping("/{recipeId}/components")
+    public ResponseEntity<RecipeComponentResponseDto> addComponent(@PathVariable Integer recipeId,
+                                                                   @Valid @RequestBody RecipeComponentRequestDto request) {
+        RecipeComponentResponseDto created = recipeService.addComponent(recipeId, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @PutMapping("/{recipeId}/ingredients/{recipeIngredientId}")
-    public ResponseEntity<RecipeIngredientResponseDto> updateIngredient(@PathVariable Integer recipeId,
-                                                                        @PathVariable Integer recipeIngredientId,
-                                                                        @Valid @RequestBody RecipeIngredientRequestDto request) {
-        return ResponseEntity.ok(recipeService.updateIngredient(recipeId, recipeIngredientId, request));
+    @PutMapping("/{recipeId}/components/{recipeComponentId}")
+    public ResponseEntity<RecipeComponentResponseDto> updateComponent(@PathVariable Integer recipeId,
+                                                                      @PathVariable Integer recipeComponentId,
+                                                                      @Valid @RequestBody RecipeComponentRequestDto request) {
+        return ResponseEntity.ok(recipeService.updateComponent(recipeId, recipeComponentId, request));
     }
 
-    @DeleteMapping("/{recipeId}/ingredients/{recipeIngredientId}")
-    public ResponseEntity<Void> deleteIngredient(@PathVariable Integer recipeId,
-                                                 @PathVariable Integer recipeIngredientId) {
-        recipeService.deleteIngredient(recipeId, recipeIngredientId);
+    @DeleteMapping("/{recipeId}/components/{recipeComponentId}")
+    public ResponseEntity<Void> deleteComponent(@PathVariable Integer recipeId,
+                                                @PathVariable Integer recipeComponentId) {
+        recipeService.deleteComponent(recipeId, recipeComponentId);
         return ResponseEntity.noContent().build();
     }
 

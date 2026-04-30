@@ -1,0 +1,31 @@
+---
+description: Flyway SQL migration conventions for MySQL schema changes
+globs:
+  - src/main/resources/db/migration/*.sql
+alwaysApply: false
+---
+
+# Flyway SQL conventions
+
+## Migration naming and structure
+
+- **Versioning:** use `Vx_y__descriptive_name.sql` (e.g. `V3_1__add_recipe_index.sql`).
+- **Single responsibility:** one migration should target one coherent schema/data change.
+- **Forward-only:** never rewrite already applied migrations; add a new migration instead.
+
+## Schema changes
+
+- **Naming:** use explicit names for constraints and indexes.
+- **Compatibility:** prefer additive changes before destructive ones in active environments.
+- **Integrity:** define foreign keys and nullability intentionally, not by default.
+
+## Data migrations
+
+- **Deterministic scripts:** avoid non-repeatable inserts/updates without guards.
+- **Idempotency when needed:** use guarded statements for seed-like data operations.
+- **Safety:** validate assumptions in `WHERE` clauses to avoid broad updates/deletes.
+
+## Formatting
+
+- **Readability:** one statement block per concern and consistent uppercase SQL keywords.
+- **Comments:** add short comments only when intent is not obvious.

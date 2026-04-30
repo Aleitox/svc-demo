@@ -31,26 +31,47 @@ CREATE TABLE recipe (
     CONSTRAINT uq_recipe_name UNIQUE (name)
 );
 
-CREATE TABLE recipe_ingredient (
+CREATE TABLE recipe_component (
     id INT AUTO_INCREMENT PRIMARY KEY,
     recipe_id INT NOT NULL,
-    ingredient_id INT NOT NULL,
+    component_type VARCHAR(20) NOT NULL,
+    ingredient_id INT NULL,
+    child_recipe_id INT NULL,
     quantity DECIMAL(10,2) NOT NULL,
     unit VARCHAR(50) NOT NULL DEFAULT 'g',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    CONSTRAINT fk_recipe_ingredient_recipe
+    CONSTRAINT fk_recipe_component_recipe
         FOREIGN KEY (recipe_id) REFERENCES recipe(id),
 
-    CONSTRAINT fk_recipe_ingredient_ingredient
+    CONSTRAINT fk_recipe_component_ingredient
         FOREIGN KEY (ingredient_id) REFERENCES ingredient(id),
 
-    CONSTRAINT uq_recipe_ingredient
-        UNIQUE (recipe_id, ingredient_id),
+    CONSTRAINT fk_recipe_component_child_recipe
+        FOREIGN KEY (child_recipe_id) REFERENCES recipe(id),
 
-    CONSTRAINT chk_recipe_ingredient_quantity
-        CHECK (quantity > 0)
+    CONSTRAINT uq_recipe_component_ingredient
+        UNIQUE (recipe_id, component_type, ingredient_id),
+
+    CONSTRAINT uq_recipe_component_child_recipe
+        UNIQUE (recipe_id, component_type, child_recipe_id),
+
+    CONSTRAINT chk_recipe_component_quantity
+        CHECK (quantity > 0),
+
+    CONSTRAINT chk_recipe_component_type
+        CHECK (component_type IN ('INGREDIENT', 'RECIPE')),
+
+    CONSTRAINT chk_recipe_component_reference
+        CHECK (
+            (component_type = 'INGREDIENT' AND ingredient_id IS NOT NULL AND child_recipe_id IS NULL)
+            OR
+            (component_type = 'RECIPE' AND ingredient_id IS NULL AND child_recipe_id IS NOT NULL)
+        ),
+
+    CONSTRAINT chk_recipe_component_no_self_reference
+        CHECK (child_recipe_id IS NULL OR recipe_id <> child_recipe_id)
 );
 
 CREATE TABLE recipe_step (
@@ -133,11 +154,14 @@ CREATE TABLE meal_entry_recipe (
 -- INDEXES
 -- =============================
 
-CREATE INDEX idx_recipe_ingredient_recipe_id
-    ON recipe_ingredient(recipe_id);
+CREATE INDEX idx_recipe_component_recipe_id
+    ON recipe_component(recipe_id);
 
-CREATE INDEX idx_recipe_ingredient_ingredient_id
-    ON recipe_ingredient(ingredient_id);
+CREATE INDEX idx_recipe_component_ingredient_id
+    ON recipe_component(ingredient_id);
+
+CREATE INDEX idx_recipe_component_child_recipe_id
+    ON recipe_component(child_recipe_id);
 
 CREATE INDEX idx_recipe_step_recipe_id
     ON recipe_step(recipe_id);
