@@ -7,25 +7,28 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
-public record ComidaRequestDto(
+public record IngredientRequestDto(
         @NotBlank
         @Size(max = 255)
-        String nombre,
+        String name,
 
         @NotNull
         @DecimalMin(value = "0.00")
-        BigDecimal calorias,
+        BigDecimal caloriesPer100g,
 
         @NotNull
         @DecimalMin(value = "0.00")
-        BigDecimal proteinas,
+        BigDecimal proteinsPer100g,
 
         @NotNull
         @DecimalMin(value = "0.00")
-        BigDecimal carbohidratos,
+        BigDecimal carbohydratesPer100g,
 
         @NotNull
         @DecimalMin(value = "0.00")
-        BigDecimal grasas
+        BigDecimal fatsPer100g,
+
+        @Size(max = 255)
+        String nutritionSource
 ) {
 }
