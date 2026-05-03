@@ -13,6 +13,7 @@ Private project backlog. Edit sections below as you like.
 - Authentication layer
 - Endpoint list with filters
 - Agregation of calories and macros
+- Swagguer
 
 ---
 
